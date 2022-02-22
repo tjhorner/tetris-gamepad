@@ -1,0 +1,8 @@
+- space (hard drop)
+- down (soft drop)
+- left
+- right
+- z (rotate cw)
+- x (rotate ccw)
+- shift (hold)
+- a (zone)
