@@ -25,6 +25,26 @@ ButtonDefinition buttonMap[] = {
   { BUTTON_ZONE_INPUT, BUTTON_ZONE_LED, ButtonType::Zone }, // Zone
 };
 
+void startupAnimation(int blinks) {
+  for (int i = 0; i < blinks; i++) {
+    digitalWrite(LED_BUILTIN, HIGH);
+    for (ButtonDefinition& btn : buttonMap) {
+      digitalWrite(btn.ledPin, HIGH);
+      delay(100);
+    }
+
+    delay(500);
+
+    digitalWrite(LED_BUILTIN, LOW);
+    for (ButtonDefinition& btn : buttonMap) {
+      digitalWrite(btn.ledPin, LOW);
+      delay(100);
+    }
+
+    delay(500);
+  }
+}
+
 void setup() {
   Serial.begin(9600);
 
@@ -38,9 +58,11 @@ void setup() {
   if (digitalRead(MODE_SELECT_GAMEPAD) == LOW) {
     Serial.println("Booting into gamepad mode");
     mode = new GamepadMode();
+    startupAnimation(2);
   } else {
     Serial.println("Booting into keyboard mode");
     mode = new KeyboardMode();
+    startupAnimation(1);
   }
 
   assert(mode != NULL);
