@@ -19,3 +19,7 @@ There are a few modes planned for the gamepad firmware:
 - Switch Pro Controller emulation
 
 I'm not currently planning on adding wired support.
+
+## Acknowledgements
+
+Thanks to the kind folks at [NYC Resistor](https://www.nycresistor.com/) for hosting their public craft nights, which opened up a bunch of resources and tools (namely, the laser cutter!) to me, helping make this project a reality.
