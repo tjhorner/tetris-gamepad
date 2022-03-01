@@ -2,6 +2,8 @@
 
 Source files for an arcade-style gamepad meant to be used for Tetris gameplay. Work in progress.
 
+![](https://user-images.githubusercontent.com/2646487/156121738-c637d5b7-dae7-4425-8ae6-142c59491b01.png)
+
 ## Directory Structure
 
 - `src`: Source files for the firmware (licensed under MIT)
