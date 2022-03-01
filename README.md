@@ -14,9 +14,9 @@ Source files for an arcade-style gamepad meant to be used for Tetris gameplay. W
 
 There are a few modes planned for the gamepad firmware:
 
-- Bluetooth gamepad
-- Bluetooth keyboard
-- Switch Pro Controller emulation
+- [x] Bluetooth gamepad
+- [x] Bluetooth keyboard
+- [ ] Switch Pro Controller emulation
 
 I'm not currently planning on adding wired support.
 
