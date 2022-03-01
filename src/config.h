@@ -1,0 +1,32 @@
+#ifndef CONFIG_H
+#define CONFIG_H
+
+// Pin to button map
+#define BUTTON_HOLD_INPUT J1
+#define BUTTON_HOLD_LED J2
+
+#define BUTTON_CCW_INPUT J3
+#define BUTTON_CCW_LED J4
+
+#define BUTTON_CW_INPUT J5
+#define BUTTON_CW_LED J6
+
+#define BUTTON_LEFT_INPUT J7
+#define BUTTON_LEFT_LED J8
+
+#define BUTTON_RIGHT_INPUT J9
+#define BUTTON_RIGHT_LED J10
+
+#define BUTTON_HARD_DROP_INPUT J11
+#define BUTTON_HARD_DROP_LED J12
+
+#define BUTTON_SOFT_DROP_INPUT J13
+#define BUTTON_SOFT_DROP_LED J14
+
+#define BUTTON_ZONE_INPUT J15
+#define BUTTON_ZONE_LED J16
+
+// Buttons to hold during startup to select a mode
+#define MODE_SELECT_GAMEPAD BUTTON_HOLD_INPUT
+
+#endif

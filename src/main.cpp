@@ -1,51 +1,69 @@
-#include <Arduino.h>
-#include <BleKeyboard.h>
+#include "main.h"
 
-BleKeyboard bleKeyboard;
-bool pressed = false;
+Mode* mode;
 
-struct KeyDefinition {
+struct ButtonDefinition {
   uint8_t inputPin;
   uint8_t ledPin;
-  uint8_t keyCode;
+  ButtonType type;
   bool beingPressed;
 };
 
-KeyDefinition keys[] = {
-  // input pin, led pin, key
-  { 23, 22, ' ' },
-  // { 33, 32, KEY_LEFT_ARROW }
-}; 
+ButtonDefinition buttonMap[] = {
+  // Row 1
+  { BUTTON_HOLD_INPUT, BUTTON_HOLD_LED, ButtonType::Hold }, // Hold
+  { BUTTON_CCW_INPUT, BUTTON_CCW_LED, ButtonType::CCW }, // CCW
+  { BUTTON_CW_INPUT, BUTTON_CW_LED, ButtonType::CW }, // CW
+  { BUTTON_LEFT_INPUT, BUTTON_LEFT_LED, ButtonType::Left }, // Left
+  { BUTTON_RIGHT_INPUT, BUTTON_RIGHT_LED, ButtonType::Right }, // Right
+
+  // Row 2
+  { BUTTON_HARD_DROP_INPUT, BUTTON_HARD_DROP_LED, ButtonType::HardDrop }, // Hard Drop
+  { BUTTON_SOFT_DROP_INPUT, BUTTON_SOFT_DROP_LED, ButtonType::SoftDrop }, // Soft Drop
+
+  // Row 3
+  { BUTTON_ZONE_INPUT, BUTTON_ZONE_LED, ButtonType::Zone }, // Zone
+};
 
 void setup() {
-  for (KeyDefinition& key : keys) {
-    key.beingPressed = false;
-    pinMode(key.inputPin, INPUT_PULLUP);
-    pinMode(key.ledPin, OUTPUT);
+  Serial.begin(9600);
+
+  for (ButtonDefinition& btn : buttonMap) {
+    btn.beingPressed = false;
+    pinMode(btn.inputPin, INPUT_PULLUP);
+    pinMode(btn.ledPin, OUTPUT);
   }
 
-  bleKeyboard.setName("da gamepad");
-  bleKeyboard.begin();
+  // Set mode based on button held at startup (See config.h to customize)
+  if (digitalRead(MODE_SELECT_GAMEPAD) == LOW) {
+    Serial.println("Booting into gamepad mode");
+    mode = new GamepadMode();
+  } else {
+    Serial.println("Booting into keyboard mode");
+    mode = new KeyboardMode();
+  }
 
-  Serial.begin(9600);
+  assert(mode != NULL);
+  mode->setup();
 }
 
 void loop() {
-  if (!bleKeyboard.isConnected()) {
-    delay(1000);
+  if (!mode->loop()) {
     return;
   }
 
-  for (KeyDefinition& key : keys) {
-    bool pressed = digitalRead(key.inputPin) == LOW;
-    if (pressed != key.beingPressed) {
-      key.beingPressed = pressed;
+  // TODO: maybe use interrupts here? this is a bit slow
+  for (ButtonDefinition& btn : buttonMap) {
+    bool pressed = digitalRead(btn.inputPin) == LOW;
+    if (pressed != btn.beingPressed) {
+      btn.beingPressed = pressed;
+
       if (pressed) {
-        digitalWrite(key.ledPin, HIGH);
-        bleKeyboard.press(key.keyCode);
+        digitalWrite(btn.ledPin, HIGH);
+        mode->pressButton(btn.type);
       } else {
-        digitalWrite(key.ledPin, LOW);
-        bleKeyboard.release(key.keyCode);
+        digitalWrite(btn.ledPin, LOW);
+        mode->releaseButton(btn.type);
       }
     }
   }
