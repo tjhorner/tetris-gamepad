@@ -27,7 +27,8 @@ ButtonDefinition buttonMap[] = {
 
 enum SelectedMode {
   Gamepad, // default, since it's first
-  Keyboard
+  Keyboard,
+  Switch
 };
 
 SelectedMode getSavedMode() {
@@ -76,6 +77,9 @@ void setup() {
   } else if (digitalRead(MODE_SELECT_KEYBOARD) == LOW) {
     Serial.println("Switching to keyboard mode");
     setSavedMode(Keyboard);
+  } else if (digitalRead(MODE_SELECT_SWITCH) == LOW) {
+    Serial.println("Switching to Switch Pro Controller mode");
+    setSavedMode(Switch);
   }
 
   switch (getSavedMode()) {
@@ -89,6 +93,10 @@ void setup() {
     case Keyboard:
       mode = new KeyboardMode();
       startupAnimation(2);
+      break;
+    case Switch:
+      mode = new SwitchMode();
+      startupAnimation(3);
       break;
   }
 

@@ -55,11 +55,13 @@ The mode you are currently in will be indicated by how many times the startup an
 
 - 1 time: gamepad mode
 - 2 times: keyboard mode
+- 3 times: Switch Pro Controller mode
 
 You can switch between the modes by holding down a certain button during startup:
 
 - HOLD: Switch to gamepad mode
 - CCW: Switch to keyboard mode
+- CW: Switch to Pro Controller mode (currently does nothing!)
 
 The default is gamepad mode. It will remember what mode you last selected on startup, so you don't need to hold the button down every time.
 
