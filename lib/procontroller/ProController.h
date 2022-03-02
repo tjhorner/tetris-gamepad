@@ -5,12 +5,12 @@
 #include <esp_bt_device.h>
 #include <esp_bt_main.h>
 #include <esp_gap_bt_api.h>
-
-// For some reason the below header can't be referenced
-// even though it's enabled in the Arduino ESP-IDF config
-#include "esp_hidd_api.h"
+#include <BluetoothSerial.h>
 
 class ProController {
+  private:
+    BluetoothSerial btSerial;
+
   public:
     ProController();
 

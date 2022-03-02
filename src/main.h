@@ -7,10 +7,8 @@
 #include "button.h"
 #include "pins.h"
 #include "config.h"
+#include "randmac.h"
 #include "modes/mode.h"
 #include "modes/gamepad.h"
 #include "modes/keyboard.h"
 #include "modes/switch.h"
-
-#define EEPROM_SIZE 1
-#define ADDR_SAVED_MODE 0

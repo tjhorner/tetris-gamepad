@@ -1,7 +1,7 @@
 #include "keyboard.h"
 
 void KeyboardMode::setup() {
-  keyboard.setName("Tetris Gamepad");
+  keyboard.setName("TGP (Keyboard)");
   keyboard.begin();
 }
 

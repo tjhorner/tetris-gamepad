@@ -100,6 +100,8 @@ void setup() {
       break;
   }
 
+  setMacAddress((int) getSavedMode());
+
   assert(mode != NULL);
   mode->setup();
 }

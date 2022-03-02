@@ -1,7 +1,7 @@
 #include "gamepad.h"
 
 void GamepadMode::setup() {
-  gamepad.deviceName = "Tetris Gamepad";
+  gamepad.deviceName = "TGP (Gamepad)";
   gamepad.deviceManufacturer = "TJ Horner";
   gamepad.setControllerType(CONTROLLER_TYPE_GAMEPAD);
   gamepad.begin();
