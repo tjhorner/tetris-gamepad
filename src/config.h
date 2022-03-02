@@ -28,5 +28,6 @@
 
 // Buttons to hold during startup to select a mode
 #define MODE_SELECT_GAMEPAD BUTTON_HOLD_INPUT
+#define MODE_SELECT_KEYBOARD BUTTON_CCW_INPUT
 
 #endif

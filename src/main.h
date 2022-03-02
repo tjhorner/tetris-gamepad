@@ -3,8 +3,13 @@
 #endif
 
 #include <Arduino.h>
+#include <EEPROM.h>
 #include "button.h"
 #include "pins.h"
+#include "config.h"
 #include "modes/mode.h"
 #include "modes/gamepad.h"
 #include "modes/keyboard.h"
+
+#define EEPROM_SIZE 1
+#define ADDR_SAVED_MODE 0

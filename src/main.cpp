@@ -25,28 +25,43 @@ ButtonDefinition buttonMap[] = {
   { BUTTON_ZONE_INPUT, BUTTON_ZONE_LED, ButtonType::Zone }, // Zone
 };
 
-void startupAnimation(int blinks) {
-  for (int i = 0; i < blinks; i++) {
+enum SelectedMode {
+  Gamepad, // default, since it's first
+  Keyboard
+};
+
+SelectedMode getSavedMode() {
+  return (SelectedMode) EEPROM.read(ADDR_SAVED_MODE);
+}
+
+void setSavedMode(SelectedMode mode) {
+  EEPROM.write(ADDR_SAVED_MODE, (uint8_t) mode);
+  EEPROM.commit();
+}
+
+void startupAnimation(int repeatCount) {
+  for (int i = 0; i < repeatCount; i++) {
     digitalWrite(LED_BUILTIN, HIGH);
     for (ButtonDefinition& btn : buttonMap) {
       digitalWrite(btn.ledPin, HIGH);
-      delay(100);
+      delay(50);
     }
 
-    delay(500);
+    delay(100);
 
     digitalWrite(LED_BUILTIN, LOW);
     for (ButtonDefinition& btn : buttonMap) {
       digitalWrite(btn.ledPin, LOW);
-      delay(100);
+      delay(50);
     }
 
-    delay(500);
+    delay(100);
   }
 }
 
 void setup() {
   Serial.begin(9600);
+  EEPROM.begin(EEPROM_SIZE);
 
   for (ButtonDefinition& btn : buttonMap) {
     btn.beingPressed = false;
@@ -56,13 +71,25 @@ void setup() {
 
   // Set mode based on button held at startup (See config.h to customize)
   if (digitalRead(MODE_SELECT_GAMEPAD) == LOW) {
-    Serial.println("Booting into gamepad mode");
-    mode = new GamepadMode();
-    startupAnimation(2);
-  } else {
-    Serial.println("Booting into keyboard mode");
-    mode = new KeyboardMode();
-    startupAnimation(1);
+    Serial.println("Switching to gamepad mode");
+    setSavedMode(Gamepad);
+  } else if (digitalRead(MODE_SELECT_KEYBOARD) == LOW) {
+    Serial.println("Switching to keyboard mode");
+    setSavedMode(Keyboard);
+  }
+
+  switch (getSavedMode()) {
+    default:
+      // somehow got in an invalid state
+      setSavedMode(Gamepad);
+    case Gamepad:
+      mode = new GamepadMode();
+      startupAnimation(1);
+      break;
+    case Keyboard:
+      mode = new KeyboardMode();
+      startupAnimation(2);
+      break;
   }
 
   assert(mode != NULL);
