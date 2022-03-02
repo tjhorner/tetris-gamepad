@@ -2,7 +2,7 @@
 
 Source files for an arcade-style gamepad meant to be used for Tetris gameplay. Work in progress.
 
-![](https://user-images.githubusercontent.com/2646487/156121738-c637d5b7-dae7-4425-8ae6-142c59491b01.png)
+![](https://user-images.githubusercontent.com/2646487/156272087-9cd5bf07-1616-46c3-b635-ff411a45a784.png)
 
 ## Directory Structure
 
@@ -62,6 +62,12 @@ You can switch between the modes by holding down a certain button during startup
 - CCW: Switch to keyboard mode
 
 The default is gamepad mode. It will remember what mode you last selected on startup, so you don't need to hold the button down every time.
+
+### Configuration
+
+If you want to modify which pins correspond to which buttons, you can do that in the `config.h` file. For convenience, `pins.h` defines a list of which JST connectors (labeled on the PCB) correspond to which GPIO pins (you can also modify this if need be).
+
+You can also change which buttons you need to press to switch between modes.
 
 ## Acknowledgements
 
