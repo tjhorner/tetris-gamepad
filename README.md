@@ -1,6 +1,6 @@
 # Tetris Gamepad
 
-Source files for an arcade-style gamepad meant to be used for Tetris gameplay. Work in progress.
+These are the source files for an arcade-style gamepad designed to be used for Tetris gameplay. Work in progress (things will break!)
 
 ![](https://user-images.githubusercontent.com/2646487/156272087-9cd5bf07-1616-46c3-b635-ff411a45a784.png)
 
