@@ -43,14 +43,6 @@ The firmware development workflow is powered by [PlatformIO](https://platformio.
 
 ### Operating Modes
 
-There are a few modes planned for the gamepad firmware:
-
-- [x] Bluetooth gamepad
-- [x] Bluetooth keyboard
-- [ ] Switch Pro Controller emulation
-
-I'm not currently planning on adding wired support, since that would require either separate hardware or modifying the bootloader.
-
 The mode you are currently in will be indicated by how many times the startup animation loops (one cycle of the startup animation is all the LEDs turning on in order, then turning off).
 
 - 1 time: gamepad mode
@@ -61,9 +53,13 @@ You can switch between the modes by holding down a certain button during startup
 
 - HOLD: Switch to gamepad mode
 - CCW: Switch to keyboard mode
-- CW: Switch to Pro Controller mode (currently does nothing!)
+- CW: Switch to Pro Controller mode
 
 The default is gamepad mode. It will remember what mode you last selected on startup, so you don't need to hold the button down every time.
+
+#### Pro Controller Mode Note
+
+To use the gamepad with your Switch in Pro Controller mode, you will need to go to `Controllers > Change Grip/Order` every time you connect the controller. It's annoying, but I haven't figured out how to persist the pairing with the console.
 
 ### Configuration
 
