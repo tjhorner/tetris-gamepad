@@ -59,7 +59,7 @@ The default is gamepad mode. It will remember what mode you last selected on sta
 
 #### Gamepad Mode
 
-By default, the gamepad buttons are defined as such:
+In gamepad mode, the device will broadcast itself as a BLE gamepad. By default, the buttons are defined as such:
 
 | **Physical Button** | **Virtual Button** |
 |---------------------|--------------------|
@@ -76,7 +76,7 @@ This does not follow a standard layout for e.g., an Xbox controller, so you will
 
 #### Keyboard Mode
 
-This mode is not as stable as gamepad or Pro Controller mode, so it should be used only as a backup method if those don't work.
+In keyboard mode, the device will broadcast itself as a BLE keyboard. This mode is not as stable as gamepad or Pro Controller mode, so it should be used only as a backup method if those don't work.
 
 The default bindings are:
 
@@ -94,6 +94,8 @@ The default bindings are:
 They follow normal the normal Guideline layout, so you should be fine with most games, but if you need to change them, you can do so in the `modes/keyboard.h` file.
 
 #### Pro Controller Mode
+
+Since the Switch does not support using generic Bluetooth gamepads, this is a special mode which imitates a Pro Controller.
 
 **Note:** To use the gamepad with your Switch in Pro Controller mode, you will need to go to `Controllers > Change Grip/Order` every time you connect the controller. It's annoying, but I haven't figured out how to persist the pairing with the console.
 
