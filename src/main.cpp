@@ -67,11 +67,11 @@ void IRAM_ATTR isr() {
       if (pressed) {
         assert(mode != NULL);
         mode->pressButton(btn.type);
-        // digitalWrite(btn.ledPin, HIGH);
+        digitalWrite(btn.ledPin, HIGH);
       } else {
         assert(mode != NULL);
         mode->releaseButton(btn.type);
-        // digitalWrite(btn.ledPin, LOW);
+        digitalWrite(btn.ledPin, LOW);
       }
     }
   }
