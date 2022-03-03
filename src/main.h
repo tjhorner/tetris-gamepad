@@ -1,7 +1,3 @@
-#ifndef USE_NIMBLE
-#define USE_NIMBLE
-#endif
-
 #include <Arduino.h>
 #include <EEPROM.h>
 #include "button.h"

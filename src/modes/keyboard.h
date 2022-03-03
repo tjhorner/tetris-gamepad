@@ -13,13 +13,13 @@ class KeyboardMode : public Mode {
     BleKeyboard keyboard;
     std::map<ButtonType, uint8_t> buttonMap = {
       { ButtonType::Hold, KEY_LEFT_SHIFT },
-      { ButtonType::CCW, 'Z' },
-      { ButtonType::CW, 'X' },
+      { ButtonType::CCW, 'z' },
+      { ButtonType::CW, 'x' },
       { ButtonType::Left, KEY_LEFT_ARROW },
       { ButtonType::Right, KEY_RIGHT_ARROW },
       { ButtonType::HardDrop, ' ' },
       { ButtonType::SoftDrop, KEY_DOWN_ARROW },
-      { ButtonType::Zone, 'A' },
+      { ButtonType::Zone, 'a' },
     };
 
   public:

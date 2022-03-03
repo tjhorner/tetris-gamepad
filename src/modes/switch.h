@@ -1,5 +1,5 @@
 #include <Arduino.h>
-// #include <ProController.h>
+#include <ProController.h>
 #include <map>
 #include "mode.h"
 #include "pins.h"
@@ -9,8 +9,18 @@
 #define SWITCH_H
 
 class SwitchMode : public Mode {
-  // private:
-  //   ProController controller;
+  private:
+    ProController controller;
+    std::map<ButtonType, ProControllerButton> buttonMap = {
+      { ButtonType::Hold, ButtonL },
+      { ButtonType::CCW, ButtonB },
+      { ButtonType::CW, ButtonA },
+      { ButtonType::Left, ButtonDPadLeft },
+      { ButtonType::Right, ButtonDPadRight },
+      { ButtonType::HardDrop, ButtonDPadUp },
+      { ButtonType::SoftDrop, ButtonDPadDown },
+      { ButtonType::Zone, ButtonZL },
+    };
 
   public:
     SwitchMode() { };

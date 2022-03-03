@@ -42,7 +42,7 @@ void setSavedMode(SelectedMode mode) {
 
 void startupAnimation(int repeatCount) {
   for (int i = 0; i < repeatCount; i++) {
-    digitalWrite(LED_BUILTIN, HIGH);
+    // digitalWrite(LED_BUILTIN, HIGH);
     for (ButtonDefinition& btn : buttonMap) {
       digitalWrite(btn.ledPin, HIGH);
       delay(50);
@@ -50,7 +50,7 @@ void startupAnimation(int repeatCount) {
 
     delay(100);
 
-    digitalWrite(LED_BUILTIN, LOW);
+    // digitalWrite(LED_BUILTIN, LOW);
     for (ButtonDefinition& btn : buttonMap) {
       digitalWrite(btn.ledPin, LOW);
       delay(50);
@@ -60,8 +60,31 @@ void startupAnimation(int repeatCount) {
   }
 }
 
+void IRAM_ATTR isr() {
+  for (ButtonDefinition& btn : buttonMap) {
+    bool pressed = digitalRead(btn.inputPin) == LOW;
+    if (pressed != btn.beingPressed) {
+      btn.beingPressed = pressed;
+
+      if (pressed) {
+        mode->pressButton(btn.type);
+        // digitalWrite(btn.ledPin, HIGH);
+      } else {
+        mode->releaseButton(btn.type);
+        // digitalWrite(btn.ledPin, LOW);
+      }
+    }
+  }
+}
+
+void attachInterrupts() {
+  for (ButtonDefinition& btn : buttonMap) {
+    attachInterrupt(digitalPinToInterrupt(btn.inputPin), isr, CHANGE);
+  }
+}
+
 void setup() {
-  Serial.begin(9600);
+  Serial.begin(115200);
   EEPROM.begin(EEPROM_SIZE);
 
   for (ButtonDefinition& btn : buttonMap) {
@@ -100,30 +123,22 @@ void setup() {
       break;
   }
 
-  setMacAddress((int) getSavedMode());
+  bool forceResetMac = digitalRead(RESET_MAC_INPUT) == LOW;
+  setMacAddress((int) getSavedMode(), forceResetMac);
 
   assert(mode != NULL);
   mode->setup();
+
+  attachInterrupts();
+  Serial.println("exit setup");
 }
 
 void loop() {
+  delay(10);
+
+  // TODO: there is really no point to this loop anymore,
+  // maybe get rid of it soon
   if (!mode->loop()) {
     return;
-  }
-
-  // TODO: maybe use interrupts here? this is a bit slow
-  for (ButtonDefinition& btn : buttonMap) {
-    bool pressed = digitalRead(btn.inputPin) == LOW;
-    if (pressed != btn.beingPressed) {
-      btn.beingPressed = pressed;
-
-      if (pressed) {
-        digitalWrite(btn.ledPin, HIGH);
-        mode->pressButton(btn.type);
-      } else {
-        digitalWrite(btn.ledPin, LOW);
-        mode->releaseButton(btn.type);
-      }
-    }
   }
 }

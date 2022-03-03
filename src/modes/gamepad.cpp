@@ -3,7 +3,7 @@
 void GamepadMode::setup() {
   gamepad.deviceName = "TGP (Gamepad)";
   gamepad.deviceManufacturer = "TJ Horner";
-  gamepad.setControllerType(CONTROLLER_TYPE_GAMEPAD);
+  // gamepad.setControllerType(CONTROLLER_TYPE_GAMEPAD);
   gamepad.begin();
 }
 
@@ -12,18 +12,13 @@ void GamepadMode::teardown() {
 }
 
 bool GamepadMode::loop() {
-  if (!gamepad.isConnected()) {
-    delay(1000);
-    return false;
-  }
-
-  return true;
+  return gamepad.isConnected();
 }
 
 void GamepadMode::pressButton(ButtonType button) {
-  gamepad.press(buttonMap[button]);
+  gamepad.press(this->buttonMap[button]);
 }
 
 void GamepadMode::releaseButton(ButtonType button) {
-  gamepad.release(buttonMap[button]);
+  gamepad.release(this->buttonMap[button]);
 }

@@ -10,12 +10,7 @@ void KeyboardMode::teardown() {
 }
 
 bool KeyboardMode::loop() {
-  if (!keyboard.isConnected()) {
-    delay(1000);
-    return false;
-  }
-
-  return true;
+  return keyboard.isConnected();
 }
 
 void KeyboardMode::pressButton(ButtonType btn) {
@@ -23,5 +18,5 @@ void KeyboardMode::pressButton(ButtonType btn) {
 }
 
 void KeyboardMode::releaseButton(ButtonType btn) {
-  keyboard.release(buttonMap[btn]);
+  keyboard.release(this->buttonMap[btn]);
 }
