@@ -42,7 +42,6 @@ void setSavedMode(SelectedMode mode) {
 
 void startupAnimation(int repeatCount) {
   for (int i = 0; i < repeatCount; i++) {
-    // digitalWrite(LED_BUILTIN, HIGH);
     for (ButtonDefinition& btn : buttonMap) {
       digitalWrite(btn.ledPin, HIGH);
       delay(50);
@@ -50,7 +49,6 @@ void startupAnimation(int repeatCount) {
 
     delay(100);
 
-    // digitalWrite(LED_BUILTIN, LOW);
     for (ButtonDefinition& btn : buttonMap) {
       digitalWrite(btn.ledPin, LOW);
       delay(50);
@@ -67,9 +65,11 @@ void IRAM_ATTR isr() {
       btn.beingPressed = pressed;
 
       if (pressed) {
+        assert(mode != NULL);
         mode->pressButton(btn.type);
         // digitalWrite(btn.ledPin, HIGH);
       } else {
+        assert(mode != NULL);
         mode->releaseButton(btn.type);
         // digitalWrite(btn.ledPin, LOW);
       }
@@ -83,7 +83,9 @@ void attachInterrupts() {
   }
 }
 
-void setup() {
+extern "C" void app_main() {
+  initArduino();
+
   Serial.begin(115200);
   EEPROM.begin(EEPROM_SIZE);
 
@@ -130,15 +132,6 @@ void setup() {
   mode->setup();
 
   attachInterrupts();
-  Serial.println("exit setup");
-}
 
-void loop() {
-  delay(10);
-
-  // TODO: there is really no point to this loop anymore,
-  // maybe get rid of it soon
-  if (!mode->loop()) {
-    return;
-  }
+  Serial.println("booted!");
 }

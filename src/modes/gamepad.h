@@ -10,6 +10,8 @@
 
 class GamepadMode : public Mode {
   private:
+    TaskHandle_t reportTaskHandle = NULL;
+    SemaphoreHandle_t mutex = NULL;
     BleGamepad gamepad;
     std::map<ButtonType, uint8_t> buttonMap = {
       { ButtonType::Hold, BUTTON_1 },
@@ -28,9 +30,10 @@ class GamepadMode : public Mode {
 
     void setup();
     void teardown();
-    bool loop();
     void pressButton(ButtonType button);
     void releaseButton(ButtonType button);
+    
+    void sendReport();
 };
 
 #endif

@@ -6,11 +6,6 @@ void SwitchMode::setup() {
 
 void SwitchMode::teardown() { }
 
-bool SwitchMode::loop() {
-  controller.loop();
-  return true;
-}
-
 void SwitchMode::pressButton(ButtonType type) {
   controller.pressButton(this->buttonMap[type]);
 }

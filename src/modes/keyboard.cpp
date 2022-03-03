@@ -9,10 +9,6 @@ void KeyboardMode::teardown() {
   keyboard.end();
 }
 
-bool KeyboardMode::loop() {
-  return keyboard.isConnected();
-}
-
 void KeyboardMode::pressButton(ButtonType btn) {
   keyboard.press(this->buttonMap[btn]);
 }

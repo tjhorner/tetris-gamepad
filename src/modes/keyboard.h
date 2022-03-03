@@ -28,7 +28,6 @@ class KeyboardMode : public Mode {
 
     void setup();
     void teardown();
-    bool loop();
     void pressButton(ButtonType type);
     void releaseButton(ButtonType type);
 };
