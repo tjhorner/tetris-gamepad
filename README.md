@@ -57,15 +57,68 @@ You can switch between the modes by holding down a certain button during startup
 
 The default is gamepad mode. It will remember what mode you last selected on startup, so you don't need to hold the button down every time.
 
-#### Pro Controller Mode Note
+#### Gamepad Mode
 
-To use the gamepad with your Switch in Pro Controller mode, you will need to go to `Controllers > Change Grip/Order` every time you connect the controller. It's annoying, but I haven't figured out how to persist the pairing with the console.
+By default, the gamepad buttons are defined as such:
+
+| **Physical Button** | **Virtual Button** |
+|---------------------|--------------------|
+| Hold                | Button 0           |
+| CCW                 | Button 1           |
+| CW                  | Button 2           |
+| Left                | Button 3           |
+| Right               | Button 4           |
+| Hard Drop           | Button 5           |
+| Soft Drop           | Button 6           |
+| Zone                | Button 7           |
+
+This does not follow a standard layout for e.g., an Xbox controller, so you will probably need to set up custom bindings in the game you are playing. You can also change the button assignments in the `modes/gamepad.h` file.
+
+#### Keyboard Mode
+
+This mode is not as stable as gamepad or Pro Controller mode, so it should be used only as a backup method if those don't work.
+
+The default bindings are:
+
+| **Button** | **Key**     |
+|------------|-------------|
+| Hold       | Left Shift  |
+| CCW        | Z           |
+| CW         | X           |
+| Left       | Left Arrow  |
+| Right      | Right Arrow |
+| Hard Drop  | Space       |
+| Soft Drop  | Down Arrow  |
+| Zone       | A           |
+
+They follow normal the normal Guideline layout, so you should be fine with most games, but if you need to change them, you can do so in the `modes/keyboard.h` file.
+
+#### Pro Controller Mode
+
+**Note:** To use the gamepad with your Switch in Pro Controller mode, you will need to go to `Controllers > Change Grip/Order` every time you connect the controller. It's annoying, but I haven't figured out how to persist the pairing with the console.
+
+The default bindings are:
+
+| **Physical Button** | **Virtual Button** |
+|---------------------|--------------------|
+| Hold                | L                  |
+| CCW                 | B                  |
+| CW                  | A                  |
+| Left                | D-Pad Left         |
+| Right               | D-Pad Right        |
+| Hard Drop           | D-Pad Up           |
+| Soft Drop           | D-Pad Down         |
+| Zone                | ZL                 |
+
+Similar to the keyboard mode, these bindings also follow the Guideline layout, but can be changed in `modes/switch.h`.
 
 ### Configuration
 
 If you want to modify which pins correspond to which buttons, you can do that in the `config.h` file. For convenience, `pins.h` defines a list of which JST connectors (labeled on the PCB) correspond to which GPIO pins (you can also modify this if need be).
 
 You can also change which buttons you need to press to switch between modes.
+
+There are a few other useful config options here as well; I'll document them eventually.
 
 ## Acknowledgements
 
