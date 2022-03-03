@@ -3,6 +3,9 @@
 void sendReportTask(void* pvParameters) {
   GamepadMode* mode = (GamepadMode*)pvParameters;
   while (true) {
+#if EXTRA_LOGS
+    Serial.printf("sending report %ld\n", millis());
+#endif
     mode->sendReport();
 
     // reports do not need to be sent often,

@@ -36,4 +36,6 @@
 #define ADDR_SAVED_MODE 0
 #define ADDR_BASE_ADDRESS 1
 
+#define EXTRA_LOGS 0
+
 #endif
