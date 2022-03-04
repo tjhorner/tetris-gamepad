@@ -165,11 +165,11 @@ void sendButtons() {
   report30[9] = 0x16; //(cx_send << 4) & 0xF0;
   report30[10] = 0xD8;//(cx_send & 0xF0) >> 4;
   report30[11] = 0x7D;//cy_send;
+  xSemaphoreGive(reportMutex);
 
   timer += 1;
   if (timer == 255)
     timer = 0;
-  xSemaphoreGive(reportMutex);
 
   if (!paired)
   {
