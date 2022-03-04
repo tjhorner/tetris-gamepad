@@ -129,3 +129,4 @@ Thanks to...
 - The kind folks at [NYC Resistor](https://www.nycresistor.com/) for hosting their public craft nights, which opened up a bunch of resources and tools (namely, the laser cutter!) to me, helping make this project a reality
 - The creator of [MakerCase](https://en.makercase.com/) for making laser cut boxes easy
 - The creator of both the [ESP32 gamepad](https://github.com/lemmingDev/ESP32-BLE-Gamepad) and [ESP32 keyboard](https://github.com/T-vK/ESP32-BLE-Keyboard) libraries, which are basically the entire basis for the firmware
+- The [BlueCubeMod](https://github.com/NathanReeves/BlueCubeMod) project, which is what the Pro Controller mode is largely based on
