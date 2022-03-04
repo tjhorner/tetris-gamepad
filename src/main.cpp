@@ -59,31 +59,6 @@ void startupAnimation(int repeatCount) {
   }
 }
 
-// void IRAM_ATTR isr() {
-//   for (ButtonDefinition& btn : buttonMap) {
-//     bool pressed = digitalRead(btn.inputPin) == LOW;
-//     if (pressed != btn.beingPressed) {
-//       btn.beingPressed = pressed;
-
-//       if (pressed) {
-//         assert(mode != NULL);
-//         mode->pressButton(btn.type);
-//         digitalWrite(btn.ledPin, HIGH);
-//       } else {
-//         assert(mode != NULL);
-//         mode->releaseButton(btn.type);
-//         digitalWrite(btn.ledPin, LOW);
-//       }
-//     }
-//   }
-// }
-
-void attachInterrupts() {
-  // for (ButtonDefinition& btn : buttonMap) {
-  //   attachInterrupt(digitalPinToInterrupt(btn.inputPin), isr, CHANGE);
-  // }
-}
-
 extern "C" void app_main() {
   initArduino();
 
@@ -133,8 +108,6 @@ extern "C" void app_main() {
 
   assert(mode != NULL);
   mode->setup();
-
-  attachInterrupts();
 
   while (true) {
     for (ButtonDefinition& btn : buttonMap) {
