@@ -10,6 +10,7 @@
 
 class GamepadMode : public Mode {
   private:
+    bool reportDirty = false;
     TaskHandle_t reportTaskHandle = NULL;
     SemaphoreHandle_t mutex = NULL;
     BleGamepad gamepad;

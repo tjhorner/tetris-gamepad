@@ -1,6 +1,7 @@
 #include "main.h"
 
 Mode* mode;
+SemaphoreHandle_t mutex;
 
 struct ButtonDefinition {
   uint8_t inputPin;
@@ -58,29 +59,29 @@ void startupAnimation(int repeatCount) {
   }
 }
 
-void IRAM_ATTR isr() {
-  for (ButtonDefinition& btn : buttonMap) {
-    bool pressed = digitalRead(btn.inputPin) == LOW;
-    if (pressed != btn.beingPressed) {
-      btn.beingPressed = pressed;
+// void IRAM_ATTR isr() {
+//   for (ButtonDefinition& btn : buttonMap) {
+//     bool pressed = digitalRead(btn.inputPin) == LOW;
+//     if (pressed != btn.beingPressed) {
+//       btn.beingPressed = pressed;
 
-      if (pressed) {
-        assert(mode != NULL);
-        mode->pressButton(btn.type);
-        digitalWrite(btn.ledPin, HIGH);
-      } else {
-        assert(mode != NULL);
-        mode->releaseButton(btn.type);
-        digitalWrite(btn.ledPin, LOW);
-      }
-    }
-  }
-}
+//       if (pressed) {
+//         assert(mode != NULL);
+//         mode->pressButton(btn.type);
+//         digitalWrite(btn.ledPin, HIGH);
+//       } else {
+//         assert(mode != NULL);
+//         mode->releaseButton(btn.type);
+//         digitalWrite(btn.ledPin, LOW);
+//       }
+//     }
+//   }
+// }
 
 void attachInterrupts() {
-  for (ButtonDefinition& btn : buttonMap) {
-    attachInterrupt(digitalPinToInterrupt(btn.inputPin), isr, CHANGE);
-  }
+  // for (ButtonDefinition& btn : buttonMap) {
+  //   attachInterrupt(digitalPinToInterrupt(btn.inputPin), isr, CHANGE);
+  // }
 }
 
 extern "C" void app_main() {
@@ -88,6 +89,8 @@ extern "C" void app_main() {
 
   Serial.begin(115200);
   EEPROM.begin(EEPROM_SIZE);
+
+  mutex = xSemaphoreCreateMutex();
 
   for (ButtonDefinition& btn : buttonMap) {
     btn.beingPressed = false;
@@ -133,5 +136,24 @@ extern "C" void app_main() {
 
   attachInterrupts();
 
-  Serial.println("booted!");
+  while (true) {
+    for (ButtonDefinition& btn : buttonMap) {
+      bool pressed = digitalRead(btn.inputPin) == LOW;
+      if (pressed != btn.beingPressed) {
+        btn.beingPressed = pressed;
+
+        if (pressed) {
+          assert(mode != NULL);
+          mode->pressButton(btn.type);
+          digitalWrite(btn.ledPin, HIGH);
+        } else {
+          assert(mode != NULL);
+          mode->releaseButton(btn.type);
+          digitalWrite(btn.ledPin, LOW);
+        }
+      }
+    }
+
+    vTaskDelay(15 / portTICK_PERIOD_MS);
+  }
 }

@@ -7,11 +7,7 @@ void sendReportTask(void* pvParameters) {
     Serial.printf("sending report %ld\n", millis());
 #endif
     mode->sendReport();
-
-    // reports do not need to be sent often,
-    // and this task fires every time a button
-    // is pressed or released anyway
-    vTaskDelay(5000 / portTICK_PERIOD_MS);
+    vTaskDelay(15 / portTICK_PERIOD_MS);
   }
 }
 
@@ -33,18 +29,23 @@ void GamepadMode::teardown() {
 
 void GamepadMode::pressButton(ButtonType button) {
   gamepad.press(this->buttonMap[button]);
+  this->reportDirty = true;
+
   if (reportTaskHandle != NULL)
     xTaskAbortDelay(reportTaskHandle);
 }
 
 void GamepadMode::releaseButton(ButtonType button) {
   gamepad.release(this->buttonMap[button]);
+  this->reportDirty = true;
+
   if (reportTaskHandle != NULL)
     xTaskAbortDelay(reportTaskHandle);
 }
 
 void GamepadMode::sendReport() {
   xSemaphoreTake(this->mutex, portMAX_DELAY);
-  gamepad.sendReport();
+  if (this->reportDirty)
+    gamepad.sendReport();
   xSemaphoreGive(this->mutex);
 }
