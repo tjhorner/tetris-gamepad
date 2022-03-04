@@ -145,22 +145,6 @@ static uint8_t emptyReport[] = {
 
 static uint8_t timer = 0;
 
-//Calibration
-// static int lxcalib = 0;
-// static int lycalib = 0;
-// static int cxcalib = 0;
-// static int cycalib = 0;
-// static int lcalib = 0;
-// static int rcalib = 0;
-
-//Buttons and sticks
-// static uint8_t lx_send = 0;
-// static uint8_t ly_send = 0;
-// static uint8_t cx_send = 0;
-// static uint8_t cy_send = 0;
-// static uint8_t lt_send = 0;
-// static uint8_t rt_send = 0;
-
 void sendButtons() {
   xSemaphoreTake(reportMutex, portMAX_DELAY);
   if (reportDirty) updateReport();
@@ -337,22 +321,6 @@ void esp_bt_hidd_cb(esp_hidd_cb_event_t event, esp_hidd_cb_param_t *param)
         }
 
         xTaskCreatePinnedToCore(sendButtonsTask, "sendButtons", 2048, NULL, 10, &sendButtonsHandle, 1);
-
-        // clear blinking LED - solid
-        // vTaskDelete(BlinkHandle);
-        // BlinkHandle = NULL;
-        // gpio_set_level(LED_GPIO, 1);
-        // start solid
-        // xSemaphoreTake(xSemaphore, portMAX_DELAY);
-        // connected = true;
-        // xSemaphoreGive(xSemaphore);
-        // restart send_task
-        // if (SendingHandle != NULL)
-        // {
-        //   vTaskDelete(SendingHandle);
-        //   SendingHandle = NULL;
-        // }
-        // xTaskCreatePinnedToCore(send_task, "send_task", 2048, NULL, 2, &SendingHandle, 0);
       }
       else
       {
@@ -385,12 +353,6 @@ void esp_bt_hidd_cb(esp_hidd_cb_event_t event, esp_hidd_cb_param_t *param)
 
         ESP_LOGI(TAG, "making self discoverable and connectable again.");
         esp_bt_gap_set_scan_mode(ESP_BT_CONNECTABLE, ESP_BT_GENERAL_DISCOVERABLE);
-
-        // xTaskCreate(startBlink, "blink_task", 1024, NULL, 1, &BlinkHandle);
-        // start blink
-        // xSemaphoreTake(xSemaphore, portMAX_DELAY);
-        // connected = false;
-        // xSemaphoreGive(xSemaphore);
       }
       else
       {
@@ -403,8 +365,8 @@ void esp_bt_hidd_cb(esp_hidd_cb_event_t event, esp_hidd_cb_param_t *param)
     }
     break;
   case ESP_HIDD_SEND_REPORT_EVT:
-    // ESP_LOGI(TAG, "ESP_HIDD_SEND_REPORT_EVT id:0x%02x, type:%d", param->send_report.report_id,
-    //          param->send_report.report_type);
+    ESP_LOGI(TAG, "ESP_HIDD_SEND_REPORT_EVT id:0x%02x, type:%d", param->send_report.report_id,
+             param->send_report.report_type);
     break;
   case ESP_HIDD_REPORT_ERR_EVT:
     ESP_LOGI(TAG, "ESP_HIDD_REPORT_ERR_EVT");
@@ -596,11 +558,6 @@ void ProController::begin()
     reply02[z + 19] = addr[z];
 
   ESP_LOGD(TAG, "exiting begin");
-}
-
-void ProController::loop() {
-  if (connected) vTaskDelay(1);
-  if (!connected) vTaskDelay(10);
 }
 
 void immediatelySendButtons() {

@@ -4,26 +4,26 @@ Mode* mode;
 SemaphoreHandle_t mutex;
 
 struct ButtonDefinition {
+  ButtonType type;
   uint8_t inputPin;
   uint8_t ledPin;
-  ButtonType type;
   bool beingPressed;
 };
 
 ButtonDefinition buttonMap[] = {
   // Row 1
-  { BUTTON_HOLD_INPUT, BUTTON_HOLD_LED, ButtonType::Hold }, // Hold
-  { BUTTON_CCW_INPUT, BUTTON_CCW_LED, ButtonType::CCW }, // CCW
-  { BUTTON_CW_INPUT, BUTTON_CW_LED, ButtonType::CW }, // CW
-  { BUTTON_LEFT_INPUT, BUTTON_LEFT_LED, ButtonType::Left }, // Left
-  { BUTTON_RIGHT_INPUT, BUTTON_RIGHT_LED, ButtonType::Right }, // Right
+  { Hold, BUTTON_HOLD_INPUT, BUTTON_HOLD_LED },
+  { CCW, BUTTON_CCW_INPUT, BUTTON_CCW_LED },
+  { CW, BUTTON_CW_INPUT, BUTTON_CW_LED },
+  { Left, BUTTON_LEFT_INPUT, BUTTON_LEFT_LED },
+  { Right, BUTTON_RIGHT_INPUT, BUTTON_RIGHT_LED },
 
   // Row 2
-  { BUTTON_HARD_DROP_INPUT, BUTTON_HARD_DROP_LED, ButtonType::HardDrop }, // Hard Drop
-  { BUTTON_SOFT_DROP_INPUT, BUTTON_SOFT_DROP_LED, ButtonType::SoftDrop }, // Soft Drop
+  { HardDrop, BUTTON_HARD_DROP_INPUT, BUTTON_HARD_DROP_LED },
+  { SoftDrop, BUTTON_SOFT_DROP_INPUT, BUTTON_SOFT_DROP_LED },
 
   // Row 3
-  { BUTTON_ZONE_INPUT, BUTTON_ZONE_LED, ButtonType::Zone }, // Zone
+  { Zone, BUTTON_ZONE_INPUT, BUTTON_ZONE_LED },
 };
 
 enum SelectedMode {

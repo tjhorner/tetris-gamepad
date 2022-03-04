@@ -43,7 +43,6 @@ class ProController {
     ProController();
 
     void begin();
-    void loop();
     void pressButton(ProControllerButton button);
     void releaseButton(ProControllerButton button);
 };
