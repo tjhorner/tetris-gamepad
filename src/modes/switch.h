@@ -1,4 +1,3 @@
-#include <Arduino.h>
 #include <ProController.h>
 #include <map>
 #include "mode.h"

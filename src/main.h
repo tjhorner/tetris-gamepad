@@ -1,4 +1,3 @@
-#include <Arduino.h>
 #include <EEPROM.h>
 #include "button.h"
 #include "pins.h"

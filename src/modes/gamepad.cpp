@@ -3,9 +3,7 @@
 void sendReportTask(void* pvParameters) {
   GamepadMode* mode = (GamepadMode*)pvParameters;
   while (true) {
-#if EXTRA_LOGS
-    Serial.printf("sending report %ld\n", millis());
-#endif
+    ESP_LOGV("sendReportTask", "sending report");
     mode->sendReport();
     vTaskDelay(15 / portTICK_PERIOD_MS);
   }

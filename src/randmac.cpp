@@ -13,6 +13,8 @@ void getBaseAddress(uint8_t* out, bool forceReset) {
 }
 
 void setMacAddress(int index, bool forceReset) {
+  static const char* TAG = "setMacAddress";
+
   randomSeed(index);
 
   uint8_t mac_addr[6];
@@ -20,12 +22,12 @@ void setMacAddress(int index, bool forceReset) {
 
   mac_addr[5] = mac_addr[5] + index;
 
-  Serial.printf("New base MAC: %x:%x:%x:%x:%x:%x\n",
+  ESP_LOGI(TAG, "New base MAC: %x:%x:%x:%x:%x:%x\n",
     mac_addr[0], mac_addr[1], mac_addr[2],
     mac_addr[3], mac_addr[4], mac_addr[5]);
 
   esp_err_t result = esp_base_mac_addr_set(mac_addr);
 
   if (result != ESP_OK)
-    Serial.printf("Failed to set MAC address (error %d / %x)\n", result, result);
+    ESP_LOGE(TAG, "Failed to set MAC address (error %d / %x)\n", result, result);
 }

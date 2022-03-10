@@ -45,24 +45,25 @@ void startupAnimation(int repeatCount) {
   for (int i = 0; i < repeatCount; i++) {
     for (ButtonDefinition& btn : buttonMap) {
       digitalWrite(btn.ledPin, HIGH);
-      delay(50);
+      vTaskDelay(50 / portTICK_PERIOD_MS);
     }
 
-    delay(100);
+    vTaskDelay(100 / portTICK_PERIOD_MS);
 
     for (ButtonDefinition& btn : buttonMap) {
       digitalWrite(btn.ledPin, LOW);
-      delay(50);
+      vTaskDelay(50 / portTICK_PERIOD_MS);
     }
 
-    delay(100);
+    vTaskDelay(100 / portTICK_PERIOD_MS);
   }
 }
 
 extern "C" void app_main() {
+  static const char* TAG = "app_main";
+
   initArduino();
 
-  Serial.begin(115200);
   EEPROM.begin(EEPROM_SIZE);
 
   mutex = xSemaphoreCreateMutex();
@@ -75,13 +76,13 @@ extern "C" void app_main() {
 
   // Set mode based on button held at startup (See config.h to customize)
   if (digitalRead(MODE_SELECT_GAMEPAD) == LOW) {
-    Serial.println("Switching to gamepad mode");
+    ESP_LOGI(TAG, "Switching to gamepad mode");
     setSavedMode(Gamepad);
   } else if (digitalRead(MODE_SELECT_KEYBOARD) == LOW) {
-    Serial.println("Switching to keyboard mode");
+    ESP_LOGI(TAG, "Switching to keyboard mode");
     setSavedMode(Keyboard);
   } else if (digitalRead(MODE_SELECT_SWITCH) == LOW) {
-    Serial.println("Switching to Switch Pro Controller mode");
+    ESP_LOGI(TAG, "Switching to Switch Pro Controller mode");
     setSavedMode(Switch);
   }
 
