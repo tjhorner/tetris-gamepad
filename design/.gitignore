@@ -28,7 +28,7 @@ fp-info-cache
 *.xml
 *.csv
 
-gamepad-backups
+*-backups
 fp-info-cache
 fp-lib-table
 sym-lib-table
