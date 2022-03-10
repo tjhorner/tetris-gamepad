@@ -175,12 +175,12 @@ void sendButtons() {
   {
     emptyReport[1] = timer;
     esp_bt_hid_device_send_report(ESP_HIDD_REPORT_TYPE_INTRDATA, 0xa1, sizeof(emptyReport), emptyReport);
-    vTaskDelay(100 / portTICK_PERIOD_MS);
+    vTaskDelay(100);
   }
   else
   {
     esp_bt_hid_device_send_report(ESP_HIDD_REPORT_TYPE_INTRDATA, 0xa1, sizeof(report30), report30);
-    vTaskDelay(15 / portTICK_PERIOD_MS);
+    vTaskDelay(15);
   }
 }
 
@@ -320,7 +320,7 @@ void esp_bt_hidd_cb(esp_hidd_cb_event_t event, esp_hidd_cb_param_t *param)
           sendButtonsHandle = NULL;
         }
 
-        xTaskCreatePinnedToCore(sendButtonsTask, "sendButtons", 2048, NULL, 10, &sendButtonsHandle, 1);
+        xTaskCreatePinnedToCore(sendButtonsTask, "sendButtons", 2048, NULL, 2, &sendButtonsHandle, 1);
       }
       else
       {
