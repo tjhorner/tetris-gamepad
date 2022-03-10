@@ -63,9 +63,7 @@ extern "C" void app_main() {
   static const char* TAG = "app_main";
 
   initArduino();
-
   EEPROM.begin(EEPROM_SIZE);
-
   mutex = xSemaphoreCreateMutex();
 
   for (ButtonDefinition& btn : buttonMap) {
