@@ -4,7 +4,7 @@ These are the source files for an arcade-style gamepad designed for Tetris gamep
 
 **Disclaimer**: Tetris is a trademark of The Tetris Company, and I am not affiliated in any way with them. I'm just a fan of the game, and wanted to make this cool project for fun (and not profit). If you're a TTC lawyer and want me to rename this project, just let me know and I'll gladly do so. (No need to DMCA 😛)
 
-![](https://user-images.githubusercontent.com/2646487/156272087-9cd5bf07-1616-46c3-b635-ff411a45a784.png)
+![](https://user-images.githubusercontent.com/2646487/157792560-db880a13-472a-42d5-8050-d12b237e9058.gif)
 
 ## Directory Structure
 
