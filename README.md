@@ -23,7 +23,7 @@ If you want to build one yourself, here are the components you will need:
 - 1x [Adafruit HUZZAH32](https://www.adafruit.com/product/3405)
 - 8x [Arcade Button](https://www.adafruit.com/product/3491) (get creative with the colors!)
 - 16x [Arcade Button Quick Connect Wire Pairs](https://www.adafruit.com/product/1152)
-- 16x [B2B-XH-A JST Connector](https://www.digikey.com/en/products/detail/jst-sales-america-inc/B2B-XH-A-LF-SN/)
+- 16x [B2B-XH-A JST Connector](https://www.digikey.com/en/products/detail/jst-sales-america-inc/B2B-XH-A-LF-SN/1651045)
 
 You can find the KiCad files for the PCB design in the `design/pcb` directory, or if you want to quickly order some, here's a fancy button that will take you to the OSH Park page for the project:
 
