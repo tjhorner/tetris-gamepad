@@ -35,3 +35,4 @@ sym-lib-table
 gerbers
 *.blend1
 local
+.svg2shenzhen-cache
